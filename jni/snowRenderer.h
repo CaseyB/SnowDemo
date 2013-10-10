@@ -3,14 +3,15 @@
 
 #include <GLES/gl.h>
 
-#define MAX_FLAKES 80
+#define MAX_FLAKES 100
 #define MAX_SPEED 0.08
 #define MIN_SPEED 0
 
 #define MIN_SIZE 10
 #define MAX_SIZE 30
 
-#define FLOAT_PER_FLAKE 6 * 3
+#define VERTS_PER_FLAKE 6
+#define FLOAT_PER_FLAKE VERTS_PER_FLAKE * 2
 
 class SnowRenderer
 {
