@@ -7,8 +7,8 @@
 #define MAX_SPEED 0.08
 #define MIN_SPEED 0
 
-#define MIN_SIZE 10
-#define MAX_SIZE 30
+#define MIN_SIZE 15
+#define MAX_SIZE 25
 
 #define VERTS_PER_FLAKE 6
 #define FLOAT_PER_FLAKE VERTS_PER_FLAKE * 2
