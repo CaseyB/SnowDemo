@@ -28,7 +28,7 @@ public class MainActivity extends Activity
 		
 		_surface = new GLSurfaceView(this);
 		_surface.setEGLConfigChooser(8, 8, 8, 8, 16, 0);
-		_surface.setRenderer(new SnowRenderer());
+		_surface.setRenderer(new SnowRenderer(this));
 		_surface.getHolder().setFormat(PixelFormat.TRANSLUCENT);
 		_surface.setZOrderOnTop(true);
 		_frame.addView(_surface, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);

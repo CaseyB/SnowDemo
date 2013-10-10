@@ -18,6 +18,8 @@ void SnowRenderer::onSurfaceCreated()
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	glEnable(GL_TEXTURE_2D);
 }
 
 void SnowRenderer::onSurfaceChanged(int width, int height)
@@ -39,16 +41,24 @@ void SnowRenderer::onDrawFrame(long deltaTime)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
-	glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
+
+	glBindTexture(GL_TEXTURE_2D, texture);
 
 	updateFlakeBuffer(deltaTime);
 
 	glEnableClientState(GL_VERTEX_ARRAY);
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 	glVertexPointer(2, GL_FLOAT, 0, _verticies);
+	glTexCoordPointer(2, GL_SHORT, 0, _texCoords);
 
 	glDrawArrays(GL_TRIANGLES, 0, MAX_FLAKES * VERTS_PER_FLAKE);
 
 	glDisableClientState(GL_VERTEX_ARRAY);
+}
+
+void SnowRenderer::setTextureId(int id)
+{
+	texture = id;
 }
 
 void SnowRenderer::buildFlakeBuffer()
@@ -58,8 +68,6 @@ void SnowRenderer::buildFlakeBuffer()
 		_radii[i] = MIN_SIZE + (float)rand() / ((float)RAND_MAX / (MAX_SIZE - MIN_SIZE));
 		_positions[i*2+0] = (rand() / (float)RAND_MAX) * _width;
 		_positions[i*2+1] = (rand() / (float)RAND_MAX) * _height;
-
-
 
 		_verticies[i*FLOAT_PER_FLAKE+0]  = _positions[i*2+0] - _radii[i];
 		_verticies[i*FLOAT_PER_FLAKE+1]  = _positions[i*2+1] - _radii[i];
@@ -78,6 +86,27 @@ void SnowRenderer::buildFlakeBuffer()
 
 		_verticies[i*FLOAT_PER_FLAKE+10] = _positions[i*2+0] + _radii[i];
 		_verticies[i*FLOAT_PER_FLAKE+11] = _positions[i*2+1] - _radii[i];
+
+
+
+
+		_texCoords[i*FLOAT_PER_FLAKE+0]  = 0;
+		_texCoords[i*FLOAT_PER_FLAKE+1]  = 0;
+
+		_texCoords[i*FLOAT_PER_FLAKE+2]  = 0;
+		_texCoords[i*FLOAT_PER_FLAKE+3]  = 1;
+
+		_texCoords[i*FLOAT_PER_FLAKE+4]  = 1;
+		_texCoords[i*FLOAT_PER_FLAKE+5]  = 0;
+
+		_texCoords[i*FLOAT_PER_FLAKE+6]  = 0;
+		_texCoords[i*FLOAT_PER_FLAKE+7]  = 1;
+
+		_texCoords[i*FLOAT_PER_FLAKE+8]  = 1;
+		_texCoords[i*FLOAT_PER_FLAKE+9]  = 1;
+
+		_texCoords[i*FLOAT_PER_FLAKE+10] = 1;
+		_texCoords[i*FLOAT_PER_FLAKE+11] = 0;
 	}
 }
 
