@@ -4,11 +4,6 @@
 
 static SnowRenderer* renderer = NULL;
 
-/*
- * Class:     org_moo_android_snowcodedemo_JNIWrapper
- * Method:    on_surface_created
- * Signature: ()V
- */
 JNIEXPORT void JNICALL Java_org_moo_android_snowcodedemo_JNIWrapper_on_1surface_1created(JNIEnv *env, jclass clazz)
 {
 	if(renderer)
@@ -21,11 +16,6 @@ JNIEXPORT void JNICALL Java_org_moo_android_snowcodedemo_JNIWrapper_on_1surface_
 	renderer->onSurfaceCreated();
 }
 
-/*
- * Class:     org_moo_android_snowcodedemo_JNIWrapper
- * Method:    on_surface_changed
- * Signature: (II)V
- */
 JNIEXPORT void JNICALL Java_org_moo_android_snowcodedemo_JNIWrapper_on_1surface_1changed(JNIEnv *env, jclass clazz, jint width, jint height)
 {
 	if(renderer)
@@ -34,15 +24,18 @@ JNIEXPORT void JNICALL Java_org_moo_android_snowcodedemo_JNIWrapper_on_1surface_
 	}
 }
 
-/*
- * Class:     org_moo_android_snowcodedemo_JNIWrapper
- * Method:    on_draw_frame
- * Signature: ()V
- */
 JNIEXPORT void JNICALL Java_org_moo_android_snowcodedemo_JNIWrapper_on_1draw_1frame(JNIEnv *env, jclass clazz, jlong deltaTime)
 {
 	if(renderer)
 	{
 		renderer->onDrawFrame((long)deltaTime);
+	}
+}
+
+JNIEXPORT void JNICALL Java_org_moo_android_snowcodedemo_JNIWrapper_set_1texture_1id(JNIEnv *env, jclass clazz, jint textureId)
+{
+	if(renderer)
+	{
+		renderer->setTextureId((int)textureId);
 	}
 }

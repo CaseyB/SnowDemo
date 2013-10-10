@@ -19,14 +19,18 @@ public:
 	void onSurfaceCreated();
 	void onSurfaceChanged(int width, int height);
 	void onDrawFrame(long deltaTime);
+	void setTextureId(int id);
 
 private:
 	void buildFlakeBuffer();
 	void updateFlakeBuffer(long deltaTime);
 
 	GLfloat _verticies[MAX_FLAKES * FLOAT_PER_FLAKE];
+	GLshort _texCoords[MAX_FLAKES * FLOAT_PER_FLAKE];
 	GLfloat _positions[MAX_FLAKES*2];
 	GLfloat _radii[MAX_FLAKES];
+
+	int texture;
 
 	int _width, _height, i;
 };
