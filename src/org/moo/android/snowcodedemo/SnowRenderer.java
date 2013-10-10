@@ -2,12 +2,13 @@ package org.moo.android.snowcodedemo;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
-import javax.microedition.khronos.opengles.GL11;
 
 import android.opengl.GLSurfaceView;
 
 public class SnowRenderer implements GLSurfaceView.Renderer
 {
+	private long _lastTime, _currentTime, _deltaTime;
+
 	@Override
 	public void onSurfaceCreated(GL10 gl, EGLConfig config)
 	{
@@ -17,13 +18,17 @@ public class SnowRenderer implements GLSurfaceView.Renderer
 	@Override
 	public void onSurfaceChanged(GL10 gl, int width, int height)
 	{
-		GL11 gl11 = (GL11)gl;
-		gl11.glViewport(0, 0, width, height);
+		JNIWrapper.on_surface_changed(width, height);
 	}
 
 	@Override
 	public void onDrawFrame(GL10 gl)
 	{
-		JNIWrapper.on_draw_frame();
+		_currentTime = System.currentTimeMillis();
+		if(_lastTime != 0) _deltaTime = _currentTime - _lastTime;
+
+		JNIWrapper.on_draw_frame(_deltaTime);
+		
+		_lastTime = _currentTime;
 	}
 }
